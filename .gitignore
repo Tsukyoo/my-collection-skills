@@ -25,3 +25,6 @@ Thumbs.db
 
 # CookieCloud server local data (contains encrypted cookie payloads)
 .cookiecloud-data/
+
+# Local marketing assets (not committed)
+_promo/
