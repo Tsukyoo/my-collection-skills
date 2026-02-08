@@ -248,7 +248,10 @@ def main(argv: list[str]) -> int:
                 print(domain)
             return 0
 
-        rules = default_rules(bilibili_uid=(str(args.bilibili_uid).strip() or None))
+        bilibili_uid = str(args.bilibili_uid).strip() if args.bilibili_uid is not None else None
+        if bilibili_uid == "":
+            bilibili_uid = None
+        rules = default_rules(bilibili_uid=bilibili_uid)
         updates = _build_exports(cookie_data, rules=rules)
 
         if not updates:
@@ -276,4 +279,3 @@ def main(argv: list[str]) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv[1:]))
-
